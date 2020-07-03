@@ -60,7 +60,7 @@ python3 main.py -task Preprocessing -dataset 'test' -parts_of_interest 'STATE_OF
 
 **The results are stored into ```./data/Preprocessing_results```. It will contain 2 sub-directories.**
 
-* **Preprocessing_results_init** contains the preprocessing results. The source texts and the summaries are saved together in big files.
+* **Preprocessing_results_init** contains the preprocessing results. The source texts and the summaries are saved together.
 
 * **Preprocessing_results_bert** contains the preprocessing results adapted for a use with BERT model
 
