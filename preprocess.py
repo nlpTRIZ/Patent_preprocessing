@@ -11,9 +11,9 @@ import random
 
 #Data augmentation
 #####
-# from google.cloud import translate_v2 as translate
-# # Instantiates a client
-# translate_client = translate.Client()
+from google.cloud import translate_v2 as translate
+# Instantiates a client
+translate_client = translate.Client()
 import nlpaug.augmenter.word as naw
 #####
 
@@ -328,67 +328,16 @@ class Preprocessor:
 
         for corpus_type in datasets:
 
-            if args.model == 'bert':
-                a_lst = []
-                for json_f in sorted(glob.glob(pjoin(args.save_path_prepro, '*' + corpus_type + '.*.json'))):
-                    real_name = json_f.split('/')[-1]
-                    a_lst.append((json_f, args, pjoin(args.save_path_nn+args.model, real_name.replace('json', args.model+'.pt'))))
-
-                
-                pool = Pool(args.n_cpus)
-
-                for d in pool.imap(format_to_bert_, a_lst):
-                    pass
-
-                pool.close()
-                pool.join()
-
-            elif args.model == 'neusum':
-                src_path = pjoin(args.save_path_nn+args.model,'text_'+corpus_type+'.src.txt')
-                tgt_path = pjoin(args.save_path_nn+args.model,'text_'+corpus_type+'.tgt.txt')
-
-                writer_src = open(src_path, 'w', encoding='utf-8')
-                writer_tgt = open(tgt_path, 'w', encoding='utf-8')
-
-                for json_f in sorted(glob.glob(pjoin(args.save_path_prepro, '*' + corpus_type + '.*.json'))):
-                    src,tgt = format_to_neusum(json_f)
-                    writer_src.write(src)
-                    writer_tgt.write(tgt)
-
-                writer_src.close()
-                writer_tgt.close()
-
-                 # Verification if some labels are empty (2nd part of contradiction)
-                ############################################################################################################################
-                src=''
-                tgt=''
-
-                with open(src_path, 'r', encoding='utf-8') as src_reader, \
-                    open(tgt_path, 'r', encoding='utf-8') as tgt_reader:
-                        for src_line, tgt_line in zip(src_reader, tgt_reader):
-                            if tgt_line !='\n':
-                                tgt+=tgt_line
-                                src+=src_line
-                src_writer = open(src_path, 'w', encoding='utf-8')
-                tgt_writer = open(tgt_path, 'w', encoding='utf-8')
-                src_writer.write(src)
-                tgt_writer.write(tgt)
-                src_writer.close()
-                tgt_writer.close()
-                ############################################################################################################################
-
-                # Oracle computation
-                oracle_path = pjoin(args.save_path_nn+args.model,corpus_type+'.rouge_bigram_F1.oracle')
-                oracle_rouge_path = pjoin(args.save_path_nn+args.model,corpus_type+'rouge_bigram_F1.oracle.regGain')
-
-                print('\n'+corpus_type+' set: Oracle predictions...')
-                find_oracle(src_path,tgt_path,oracle_path,50,100000)
-
-                print(corpus_type+' set: Regression gains computation...\n')
-                get_regression_gain(src_path, tgt_path, oracle_path, oracle_rouge_path)
+            a_lst = []
+            for json_f in sorted(glob.glob(pjoin(args.save_path_prepro, '*' + corpus_type + '.*.json'))):
+                real_name = json_f.split('/')[-1]
+                a_lst.append((json_f, args, pjoin(args.save_path_nn+args.model, real_name.replace('json', args.model+'.pt'))))
 
 
+            pool = Pool(args.n_cpus)
 
-            
+            for d in pool.imap(format_to_bert_, a_lst):
+                pass
 
-
+            pool.close()
+            pool.join()
