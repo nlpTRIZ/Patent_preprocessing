@@ -27,6 +27,14 @@ python3 main.py -task Extraction -target_file './data/Downloaded_data/ipg070102.
 
 # Data preprocessing
 
+## StanfordCoreNLP tokenizer
+Download StandfordCoreNLP tokenizer: https://stanfordnlp.github.io/CoreNLP/download.html
+
+To use **StanfordCoreNLP tokenizer** you must set an env var pointing towards stanford-corenlp-3.9.2.jar:
+
+```bash
+export CLASSPATH=path_to/stanford-corenlp-full-2018-10-05/stanford-corenlp-3.9.2.jar
+```
 
 The script takes the user's database (test/train/valid dataset) as input. These data must be placed into ```./data/Dataset/train```, ```./data/Dataset/test``` and ```./data/Dataset/valid```. 
 A file called **_ref-patent_.SUM** containing the chosen sentences for the summary must be placed in each patent directory along with .txt files of the other parts (abstract, summary...).
@@ -58,11 +66,4 @@ python3 main.py -task Preprocessing -dataset 'test' -parts_of_interest 'STATE_OF
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 
-## StanfordCoreNLP tokenizer
-Download StandfordCoreNLP tokenizer: https://stanfordnlp.github.io/CoreNLP/download.html
 
-To use **StanfordCoreNLP tokenizer** you must set an env var pointing towards stanford-corenlp-3.9.2.jar:
-
-```bash
-export CLASSPATH=path_to/stanford-corenlp-full-2018-10-05/stanford-corenlp-3.9.2.jar
-```
