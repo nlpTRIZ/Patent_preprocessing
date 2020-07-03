@@ -59,14 +59,10 @@ python3 main.py -task Preprocessing -dataset 'test' -parts_of_interest 'STATE_OF
 <p>&nbsp;</p>
 
 ## StanfordCoreNLP tokenizer
+Download StandfordCoreNLP tokenizer: https://stanfordnlp.github.io/CoreNLP/download.html
 
 To use **StanfordCoreNLP tokenizer** you must set an env var pointing towards stanford-corenlp-3.9.2.jar:
 
 ```bash
 export CLASSPATH=path_to/stanford-corenlp-full-2018-10-05/stanford-corenlp-3.9.2.jar
-```
-_For example:_
-
-```bash
-export CLASSPATH=/media/guillaume/Stockage/Pytorch_files/Preprocessing/stanford-corenlp-full-2018-10-05/stanford-corenlp-3.9.2.jar
 ```
