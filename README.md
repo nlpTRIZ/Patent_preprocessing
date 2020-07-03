@@ -36,6 +36,7 @@ To use **StanfordCoreNLP tokenizer** you must set an env var pointing towards st
 export CLASSPATH=path_to/stanford-corenlp-full-2018-10-05/stanford-corenlp-3.9.2.jar
 ```
 
+## Uses
 The script takes the user's database (test/train/valid dataset) as input. These data must be placed into ```./data/Dataset/train```, ```./data/Dataset/test``` and ```./data/Dataset/valid```. 
 A file called **_ref-patent_.SUM** containing the chosen sentences for the summary must be placed in each patent directory along with .txt files of the other parts (abstract, summary...).
 
